@@ -1,13 +1,21 @@
-import { DarkThemeToggle } from "flowbite-react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import NavbarComponent from "./components/Navbar";
+import FooterComponent from "./components/Footer";
+import Order from "./pages/Order";
 
 function App() {
   return (
-    <main className="flex min-h-screen items-center justify-center gap-2 dark:bg-gray-800">
-      <h1 className="text-2xl dark:text-white">
-        Flowbite React + Create React App
-      </h1>
-      <DarkThemeToggle />
-    </main>
+    <Router>
+      <NavbarComponent />
+      <div className="mx-auto flex min-w-0 max-w-4xl flex-col px-4 pb-12 pt-6 lg:px-8 lg:pb-16 lg:pt-8 xl:pb-24">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pesan" element={<Order />} />
+        </Routes>
+      </div>
+      <FooterComponent />
+    </Router>
   );
 }
 
