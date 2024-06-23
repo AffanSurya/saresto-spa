@@ -64,7 +64,7 @@ function NavbarComponent() {
           <Link to="/">Beranda</Link>
         </NavbarLink>
         <NavbarLink active={isActive("/pesan")}>
-          <Link to="/pesan">Pesan</Link>
+          <Link to="/pesan">Pemesanan</Link>
         </NavbarLink>
       </NavbarCollapse>
     </Navbar>

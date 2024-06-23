@@ -21,7 +21,7 @@ export default function FooterComponent() {
           />
           <FooterLinkGroup>
             <FooterLink href="">
-              <Link to="/pesan">Pesan</Link>
+              <Link to="/pesan">Pemesanan</Link>
             </FooterLink>
           </FooterLinkGroup>
         </div>
