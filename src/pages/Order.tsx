@@ -111,7 +111,7 @@ export default function Order() {
         order_id: orderId,
         menu_item_id: item.menu_item_id,
         quantity: item.quantity,
-        price: item.price,
+        price: item.price * item.quantity,
       }));
 
       await Promise.all(
@@ -125,7 +125,6 @@ export default function Order() {
         (total, item) => total + item.price * item.quantity,
         0,
       );
-      // console.log(`orderPrice: ${orderPrice} type: ${typeof orderPrice}`);
 
       await axios.put(`http://sa-restoV2.test/api/order/update/${orderId}`, {
         total_price: orderPrice,
@@ -140,12 +139,10 @@ export default function Order() {
       setSelectedMenuItems([]);
     }
   };
-  console.log(selectedMenuItems);
 
   const appetizers = menuItems.filter(
     (item) => item.category === "makanan pembuka",
   );
-  // console.log(`Appetizers ${JSON.stringify(appetizers, null, 2)}`);
 
   const mainCourses = menuItems.filter(
     (item) => item.category === "makanan utama",

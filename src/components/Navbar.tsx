@@ -51,11 +51,11 @@ function NavbarComponent() {
               name@flowbite.com
             </span>
           </DropdownHeader>
-          <DropdownItem>Dashboard</DropdownItem>
-          <DropdownItem>Settings</DropdownItem>
-          <DropdownItem>Earnings</DropdownItem>
+          <DropdownItem>
+            <Link to="/dashboard">Dashboard</Link>
+          </DropdownItem>
           <DropdownDivider />
-          <DropdownItem>Sign out</DropdownItem>
+          <DropdownItem>Log out</DropdownItem>
         </Dropdown>
         <NavbarToggle />
       </div>
