@@ -19,7 +19,7 @@ function NavbarComponent() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <Navbar fluid rounded>
+    <Navbar fluid rounded className="fixed inset-x-0 z-50">
       <Link to="/">
         <NavbarBrand>
           <img
@@ -51,9 +51,9 @@ function NavbarComponent() {
               name@flowbite.com
             </span>
           </DropdownHeader>
-          <DropdownItem>
-            <Link to="/dashboard">Dashboard</Link>
-          </DropdownItem>
+          <Link to="/dashboard">
+            <DropdownItem>Dashboard</DropdownItem>
+          </Link>
           <DropdownDivider />
           <DropdownItem>Log out</DropdownItem>
         </Dropdown>
