@@ -11,10 +11,11 @@ interface MenuItem {
   status: string;
 }
 
-interface SelectedItem {
-  name: string;
-  quantity: number;
-}
+// interface SelectedItem {
+//   menu_item_id: number;
+//   quantity: number;
+//   price: number;
+// }
 
 interface CardMenuProps {
   item: MenuItem;

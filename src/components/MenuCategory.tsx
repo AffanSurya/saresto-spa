@@ -1,7 +1,7 @@
 import React from "react";
 import CardMenu from "./CardMenu";
 
-interface MenuItem {
+interface MenuItemProps {
   id: number;
   name: string;
   description: string;
@@ -11,30 +11,38 @@ interface MenuItem {
   status: string;
 }
 
-interface SelectedItem {
+interface SelectedItemProps {
   name: string;
+  menu_item_id: number;
   quantity: number;
+  price: number;
 }
 
 interface MenuCategoryProps {
   title: string;
-  menuItems: MenuItem[];
-  selectedMenuItems: SelectedItem[];
+  menuItems: MenuItemProps[];
+  selectedMenuItems: SelectedItemProps[];
   handleMenuItemQuantityChange: (
     event: React.ChangeEvent<HTMLInputElement>,
-    itemName: string,
+    itemId: number,
+    name: string,
+    price: number,
   ) => void;
 }
 
 const MenuCategoryComponent: React.FC<MenuCategoryProps> = ({
-  title,
   menuItems,
   selectedMenuItems,
   handleMenuItemQuantityChange,
 }) => {
-  const updateQuantity = (itemName: string, delta: number) => {
+  const updateQuantity = (
+    itemId: number,
+    delta: number,
+    name: string,
+    price: number,
+  ) => {
     const selectedItem = selectedMenuItems.find(
-      (item) => item.name === itemName,
+      (item) => item.menu_item_id === itemId,
     );
     const currentQuantity = selectedItem ? selectedItem.quantity : 0;
     const newQuantity = Math.max(currentQuantity + delta, 0);
@@ -43,7 +51,7 @@ const MenuCategoryComponent: React.FC<MenuCategoryProps> = ({
       target: { value: newQuantity.toString() },
     } as React.ChangeEvent<HTMLInputElement>;
 
-    handleMenuItemQuantityChange(fakeEvent, itemName);
+    handleMenuItemQuantityChange(fakeEvent, itemId, name, price);
   };
 
   return (
@@ -55,10 +63,12 @@ const MenuCategoryComponent: React.FC<MenuCategoryProps> = ({
             item={item}
             selectedQuantity={
               selectedMenuItems.find(
-                (selectedItem) => selectedItem.name === item.name,
+                (selectedItem) => selectedItem.menu_item_id === item.id,
               )?.quantity || 0
             }
-            handleUpdateQuantity={(delta) => updateQuantity(item.name, delta)}
+            handleUpdateQuantity={(delta) =>
+              updateQuantity(item.id, delta, item.name, item.price)
+            }
           />
         ))}
       </div>
