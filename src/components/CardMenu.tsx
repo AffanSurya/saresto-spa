@@ -11,12 +11,6 @@ interface MenuItem {
   status: string;
 }
 
-// interface SelectedItem {
-//   menu_item_id: number;
-//   quantity: number;
-//   price: number;
-// }
-
 interface CardMenuProps {
   item: MenuItem;
   selectedQuantity: number;
@@ -29,7 +23,11 @@ const CardMenuComponent: React.FC<CardMenuProps> = ({
   handleUpdateQuantity,
 }) => {
   const formatRupiah = (price: number) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      maximumFractionDigits: 0,
+    }).format(price);
   };
 
   return (
@@ -43,7 +41,7 @@ const CardMenuComponent: React.FC<CardMenuProps> = ({
         {item.name}
       </h3>
       <p className="text-gray-600 dark:text-gray-400">
-        Rp {formatRupiah(item.price)}
+        {formatRupiah(item.price)}
       </p>
 
       <div className="relative flex items-center">

@@ -8,8 +8,7 @@ import MenuCategoryComponent from "../components/MenuCategory";
 import ReviewOrderComponent from "../components/ReviewOrder";
 import { HiInformationCircle } from "react-icons/hi";
 
-// Definisikan tipe data untuk item menu
-interface MenuItem {
+interface MenuItemProps {
   id: number;
   name: string;
   description: string;
@@ -19,7 +18,7 @@ interface MenuItem {
   status: string;
 }
 interface MenuItemResponse {
-  data: MenuItem[];
+  data: MenuItemProps[];
 }
 
 interface SelectedItem {
@@ -34,7 +33,7 @@ export default function Order() {
   const [selectedMenuItems, setSelectedMenuItems] = useState<SelectedItem[]>(
     [],
   );
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [menuItems, setMenuItems] = useState<MenuItemProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -161,6 +160,7 @@ export default function Order() {
         yang Anda tempati dan pilih menu yang Anda inginkan.
       </p>
 
+      {/* aler error load menu item 1 */}
       {error && (
         <Alert
           color="failure"

@@ -12,7 +12,11 @@ const ListReviewOrderComponent: React.FC<ListReviewOrderProps> = ({
   price,
 }) => {
   const formatRupiah = (price: number) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      maximumFractionDigits: 0,
+    }).format(price);
   };
   return (
     <li className="py-3 sm:py-4">
@@ -27,7 +31,7 @@ const ListReviewOrderComponent: React.FC<ListReviewOrderProps> = ({
           </p>
         </div>
         <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-          Rp {formatRupiah(price)}
+          {formatRupiah(price)}
         </div>
       </div>
     </li>

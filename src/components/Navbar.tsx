@@ -37,13 +37,7 @@ function NavbarComponent() {
         <Dropdown
           arrowIcon={false}
           inline
-          label={
-            <Avatar
-              alt="User settings"
-              img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-              rounded
-            />
-          }
+          label={<Avatar alt="User settings" img="/avatar.jpeg" rounded />}
         >
           <DropdownHeader>
             <span className="block text-sm">Bonnie Green</span>
