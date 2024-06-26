@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MenuItemsTableComponent from "../components/MenuItemsTable";
 import axios from "axios";
-import { Alert } from "flowbite-react";
+import { Alert, Button } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
 
 interface MenuItemProps {
@@ -55,6 +55,12 @@ export default function MenuItems() {
           <span className="font-medium">Info error!</span> {error}
         </Alert>
       )}
+
+      <div className="mt-5 flex justify-end">
+        <Button color="blue" className="w-36">
+          Tambah
+        </Button>
+      </div>
 
       <MenuItemsTableComponent menuItems={menuItems} />
     </div>

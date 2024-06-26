@@ -60,6 +60,15 @@ function NavbarComponent() {
         <NavbarLink active={isActive("/pesan")}>
           <Link to="/pesan">Pemesanan</Link>
         </NavbarLink>
+        <Navbar.Link href="#" disabled>
+          Services
+        </Navbar.Link>
+        <Navbar.Link href="#" disabled>
+          Pricing
+        </Navbar.Link>
+        <Navbar.Link href="#" disabled>
+          Contact
+        </Navbar.Link>
       </NavbarCollapse>
     </Navbar>
   );
