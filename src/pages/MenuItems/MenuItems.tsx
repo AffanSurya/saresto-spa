@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import MenuItemsTableComponent from "../components/MenuItemsTable";
+import MenuItemsTableComponent from "../../components/MenuItemsTable";
 import axios from "axios";
 import { Alert, Button } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";

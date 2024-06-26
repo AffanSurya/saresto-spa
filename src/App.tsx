@@ -10,7 +10,7 @@ import FooterComponent from "./components/Footer";
 import Order from "./pages/Order";
 import Dashboard from "./pages/Dashboard";
 import { SideBarComponent } from "./components/SideBar";
-import MenuItems from "./pages/MenuItems";
+import MenuItems from "./pages/MenuItems/MenuItems";
 
 interface PageLayoutProps {
   children: React.ReactNode;
