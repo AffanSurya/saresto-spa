@@ -3,6 +3,7 @@ import MenuItemsTableComponent from "../../components/MenuItemsTable";
 import axios from "axios";
 import { Alert, Button } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 interface MenuItemProps {
   id: number;
@@ -57,9 +58,11 @@ export default function MenuItems() {
       )}
 
       <div className="mt-5 flex justify-end">
-        <Button color="blue" className="w-36">
-          Tambah
-        </Button>
+        <Link to="/dashboard/menu-item/create">
+          <Button color="blue" className="w-36">
+            Tambah
+          </Button>
+        </Link>
       </div>
 
       <MenuItemsTableComponent menuItems={menuItems} />

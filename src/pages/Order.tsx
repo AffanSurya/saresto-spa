@@ -30,13 +30,13 @@ interface SelectedItem {
 
 export default function Order() {
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
-  const [selectedMenuItems, setSelectedMenuItems] = useState<SelectedItem[]>(
-    [],
-  );
   const [menuItems, setMenuItems] = useState<MenuItemProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [selectedMenuItems, setSelectedMenuItems] = useState<SelectedItem[]>(
+    [],
+  );
 
   const loadMenuItems = async () => {
     try {

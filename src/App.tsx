@@ -11,6 +11,7 @@ import Order from "./pages/Order";
 import Dashboard from "./pages/Dashboard";
 import { SideBarComponent } from "./components/SideBar";
 import MenuItems from "./pages/MenuItems/MenuItems";
+import CreateMenuItem from "./pages/MenuItems/CreateMenuItem";
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -45,6 +46,10 @@ function App() {
             <Route path="/pesan" element={<Order />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/menu-item" element={<MenuItems />} />
+            <Route
+              path="/dashboard/menu-item/create"
+              element={<CreateMenuItem />}
+            />
           </Routes>
         </div>
       </PageLayout>
