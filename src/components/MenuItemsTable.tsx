@@ -31,9 +31,9 @@ const MenuItemsTableComponent: React.FC<MenuItemTableProps> = ({
     <div className="mt-5 overflow-x-auto ">
       <Table hoverable>
         <Table.Head>
+          <Table.HeadCell>Gambar</Table.HeadCell>
           <Table.HeadCell>Nama Makanan</Table.HeadCell>
           <Table.HeadCell>Kategori</Table.HeadCell>
-          <Table.HeadCell>Gambar</Table.HeadCell>
           <Table.HeadCell>Harga</Table.HeadCell>
           <Table.HeadCell>Status</Table.HeadCell>
           <Table.HeadCell>
@@ -46,13 +46,13 @@ const MenuItemsTableComponent: React.FC<MenuItemTableProps> = ({
               key={item.id}
               className="bg-white dark:border-gray-700 dark:bg-gray-800"
             >
+              <Table.Cell>
+                <Avatar img={item.image} size="lg" />
+              </Table.Cell>
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 {item.name}
               </Table.Cell>
               <Table.Cell>{item.category}</Table.Cell>
-              <Table.Cell>
-                <Avatar img={item.image} size="lg" />
-              </Table.Cell>
               <Table.Cell>{formatRupiah(item.price)}</Table.Cell>
               <Table.Cell>{item.status}</Table.Cell>
               <Table.Cell>
