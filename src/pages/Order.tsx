@@ -7,6 +7,7 @@ import axios from "axios";
 import MenuCategoryComponent from "../components/MenuCategory";
 import ReviewOrderComponent from "../components/ReviewOrder";
 import { HiInformationCircle } from "react-icons/hi";
+import { API_URL } from "../config";
 
 interface MenuItemProps {
   id: number;
@@ -41,7 +42,7 @@ export default function Order() {
   const loadMenuItems = async () => {
     try {
       const response = await axios.get<MenuItemResponse>(
-        "http://sa-restoV2.test/api/menuItem1",
+        `${API_URL}/menuItem1`,
       );
       setMenuItems(response.data.data);
     } catch (error) {
@@ -100,7 +101,7 @@ export default function Order() {
       };
 
       const orderResponse = await axios.post(
-        "http://sa-restoV2.test/api/order/store",
+        `${API_URL}/order/store`,
         orderData,
       );
       const orderId = orderResponse.data.id;
@@ -115,7 +116,7 @@ export default function Order() {
 
       await Promise.all(
         orderItemData.map((item) =>
-          axios.post("http://sa-restoV2.test/api/orderItem/store", item),
+          axios.post(`${API_URL}/orderItem/store`, item),
         ),
       );
 
@@ -125,7 +126,7 @@ export default function Order() {
         0,
       );
 
-      await axios.put(`http://sa-restoV2.test/api/order/update/${orderId}`, {
+      await axios.put(`${API_URL}/order/update/${orderId}`, {
         total_price: orderPrice,
       });
 

@@ -4,6 +4,7 @@ import axios from "axios";
 import { Alert, Button } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { API_URL } from "../../config";
 
 interface MenuItemProps {
   id: number;
@@ -25,9 +26,8 @@ export default function MenuItems() {
   const loadMenuItems = async () => {
     try {
       const response = await axios.get<MenuItemResponse>(
-        "http://sa-restoV2.test/api/menuItem1",
+        `${API_URL}/menuItem1`,
       );
-      console.log(`hah ${response.data.data}`);
 
       setMenuItems(response.data.data);
     } catch (error) {

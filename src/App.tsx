@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import { SideBarComponent } from "./components/SideBar";
 import MenuItems from "./pages/MenuItems/MenuItems";
 import CreateMenuItem from "./pages/MenuItems/CreateMenuItem";
+import EditMenuItem from "./pages/MenuItems/EditMenuItem";
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -49,6 +50,10 @@ function App() {
             <Route
               path="/dashboard/menu-item/create"
               element={<CreateMenuItem />}
+            />
+            <Route
+              path="/dashboard/menu-item/edit/:id"
+              element={<EditMenuItem />}
             />
           </Routes>
         </div>

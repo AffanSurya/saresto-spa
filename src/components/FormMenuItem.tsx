@@ -1,8 +1,9 @@
 import axios from "axios";
-import { Alert, Button, FloatingLabel } from "flowbite-react";
-import React, { useState } from "react";
+import { Alert, Button, FloatingLabel, Label, Select } from "flowbite-react";
+import React, { useEffect, useState } from "react";
 import { HiInformationCircle } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 interface MenuItemProps {
   id?: number;
@@ -27,6 +28,9 @@ interface FormMenuItemProps {
   price?: number | string;
   category?: string;
   image?: string;
+  method?: "POST" | "PUT";
+  to: string;
+  inValidation?: validationProps;
 }
 
 const FormMenuItemComponent: React.FC<FormMenuItemProps> = ({
@@ -34,6 +38,9 @@ const FormMenuItemComponent: React.FC<FormMenuItemProps> = ({
   price = "",
   category = "",
   image = "",
+  to,
+  method = "POST",
+  inValidation,
 }) => {
   const navigate = useNavigate();
   const [validation, setValidation] = useState<validationProps>({});
@@ -43,6 +50,23 @@ const FormMenuItemComponent: React.FC<FormMenuItemProps> = ({
     category,
     image,
   });
+
+  useEffect(() => {
+    setMenuItems({
+      name,
+      price,
+      category,
+      image,
+    });
+  }, [name, price, category, image]);
+
+  useEffect(() => {
+    if (inValidation !== undefined) {
+      setValidation(inValidation);
+    } else {
+      setValidation({});
+    }
+  }, [inValidation]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -56,19 +80,39 @@ const FormMenuItemComponent: React.FC<FormMenuItemProps> = ({
     }));
   };
 
+  const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+
+    setMenuItems((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // const parsedPrice = parseInt(menuItems.price as string);
+    const url = `${API_URL}/menuItem1/${to}`;
 
-    axios
-      .post("http://sa-restoV2.test/api/menuItem1/store", menuItems)
-      .then(() => {
-        navigate("/dashboard/menu-item");
-      })
-      .catch((error) => {
-        setValidation(error.response.data);
-      });
+    if (method === "PUT") {
+      axios
+        .put(url, menuItems)
+        .then(() => {
+          navigate("/dashboard/menu-item");
+        })
+        .catch((error) => {
+          setValidation(error.response.data);
+        });
+    } else {
+      axios
+        .post(url, menuItems)
+        .then(() => {
+          navigate("/dashboard/menu-item");
+        })
+        .catch((error) => {
+          setValidation(error.response.data);
+        });
+    }
   };
 
   return (
@@ -102,7 +146,7 @@ const FormMenuItemComponent: React.FC<FormMenuItemProps> = ({
       </div>
 
       <div>
-        <div className="mb-2 block">
+        {/* <div className="mb-2 block">
           <FloatingLabel
             variant="outlined"
             name="category"
@@ -111,7 +155,26 @@ const FormMenuItemComponent: React.FC<FormMenuItemProps> = ({
             onChange={handleChange}
             required
           />
+        </div> */}
+
+        <div className="mb-2 block">
+          <Label htmlFor="category" value="Pilih Kategori Makanan" />
         </div>
+        <Select
+          id="category"
+          name="category"
+          value={menuItems.category}
+          onChange={handleSelect}
+          required
+        >
+          <option disabled value="">
+            Pilih Disini
+          </option>
+          <option value="makanan pembuka">makanan pembuka</option>
+          <option value="makanan utama">makanan utama</option>
+          <option value="pencuci mulut">pencuci mulut</option>
+          <option value="minuman">minuman</option>
+        </Select>
       </div>
 
       <div>

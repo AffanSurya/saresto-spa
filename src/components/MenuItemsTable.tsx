@@ -57,7 +57,7 @@ const MenuItemsTableComponent: React.FC<MenuItemTableProps> = ({
               <Table.Cell>{item.status}</Table.Cell>
               <Table.Cell>
                 <Link
-                  to="#"
+                  to={`/dashboard/menu-item/edit/${item.id}`}
                   className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                 >
                   Edit
