@@ -22,6 +22,7 @@ interface MenuItemResponse {
 export default function MenuItems() {
   const [menuItems, setMenuItems] = useState<MenuItemProps[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [deleteSuccess, setDeleteSuccess] = useState<string | null>(null);
 
   const loadMenuItems = async () => {
     try {
@@ -38,6 +39,16 @@ export default function MenuItems() {
   useEffect(() => {
     loadMenuItems();
   }, []);
+
+  const handleDelete = async (id: number, name: string) => {
+    try {
+      await axios.delete(`${API_URL}/menuItem1/delete/${id}`);
+      setDeleteSuccess(`Makanan ${name} berhasil dihapus`);
+      loadMenuItems();
+    } catch (error) {
+      setError(`Gagal menghapus data menu dari server: ${error}`);
+    }
+  };
 
   return (
     <div className="text-center">
@@ -57,6 +68,19 @@ export default function MenuItems() {
         </Alert>
       )}
 
+      {deleteSuccess && (
+        <Alert
+          color="success"
+          icon={HiInformationCircle}
+          className="mb-5"
+          onDismiss={() => {
+            setDeleteSuccess(null);
+          }}
+        >
+          <span className="font-medium">Info sukses!</span> {deleteSuccess}
+        </Alert>
+      )}
+
       <div className="mt-5 flex justify-end">
         <Link to="/dashboard/menu-item/create">
           <Button color="blue" className="w-36">
@@ -65,7 +89,7 @@ export default function MenuItems() {
         </Link>
       </div>
 
-      <MenuItemsTableComponent menuItems={menuItems} />
+      <MenuItemsTableComponent menuItems={menuItems} onDelete={handleDelete} />
     </div>
   );
 }

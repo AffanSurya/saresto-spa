@@ -1,6 +1,7 @@
 import { Avatar, Table } from "flowbite-react";
 import React from "react";
 import { Link } from "react-router-dom";
+import DeleteModalComponent from "./DeleteModal";
 
 interface MenuItemProps {
   id: number;
@@ -14,10 +15,12 @@ interface MenuItemProps {
 
 interface MenuItemTableProps {
   menuItems: MenuItemProps[];
+  onDelete: (id: number, name: string) => void;
 }
 
 const MenuItemsTableComponent: React.FC<MenuItemTableProps> = ({
   menuItems,
+  onDelete,
 }) => {
   const formatRupiah = (price: number) => {
     return new Intl.NumberFormat("id-ID", {
@@ -63,12 +66,18 @@ const MenuItemsTableComponent: React.FC<MenuItemTableProps> = ({
                   Edit
                 </Link>
                 {" | "}
-                <Link
+
+                <DeleteModalComponent
+                  id={item.id}
+                  name={item.name}
+                  onDelete={onDelete}
+                />
+                {/* <Link
                   to="#"
                   className="font-medium text-red-600 hover:underline dark:text-red-500"
                 >
                   Hapus
-                </Link>
+                </Link> */}
               </Table.Cell>
             </Table.Row>
           ))}
