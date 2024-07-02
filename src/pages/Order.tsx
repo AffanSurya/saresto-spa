@@ -195,7 +195,7 @@ export default function Order() {
         </div>
       </fieldset>
 
-      <Tabs aria-label="Tabs with icons" className="mt-5">
+      <Tabs aria-label="Tabs with icons" className="mt-5" variant="underline">
         <Tabs.Item title="Makanan Pembuka" icon={MdLocalDining}>
           <MenuCategoryComponent
             title="Makanan Pembuka"

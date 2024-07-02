@@ -72,12 +72,6 @@ const MenuItemsTableComponent: React.FC<MenuItemTableProps> = ({
                   name={item.name}
                   onDelete={onDelete}
                 />
-                {/* <Link
-                  to="#"
-                  className="font-medium text-red-600 hover:underline dark:text-red-500"
-                >
-                  Hapus
-                </Link> */}
               </Table.Cell>
             </Table.Row>
           ))}

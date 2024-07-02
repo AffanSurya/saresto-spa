@@ -31,8 +31,8 @@ export default function MenuItems() {
       );
 
       setMenuItems(response.data.data);
-    } catch (error) {
-      setError(`Gagal memuat data menu dari server: ${error}`);
+    } catch (error: any) {
+      setError(`Gagal memuat data menu dari server: ${error.message}`);
     }
   };
 
@@ -45,8 +45,8 @@ export default function MenuItems() {
       await axios.delete(`${API_URL}/menuItem1/delete/${id}`);
       setDeleteSuccess(`Makanan ${name} berhasil dihapus`);
       loadMenuItems();
-    } catch (error) {
-      setError(`Gagal menghapus data menu dari server: ${error}`);
+    } catch (error: any) {
+      setError(`Gagal menghapus data menu dari server: ${error.message}`);
     }
   };
 

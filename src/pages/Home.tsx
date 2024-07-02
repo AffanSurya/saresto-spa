@@ -46,7 +46,7 @@ function Home() {
       </section>
 
       <div className="flex flex-wrap justify-center gap-2">
-        <Link to="/pesan">
+        <Link to="/pemesanan">
           <Button color="blue">
             Pesan Sekarang
             <HiOutlineArrowRight className="ml-2 size-5" />

@@ -13,6 +13,7 @@ import { SideBarComponent } from "./components/SideBar";
 import MenuItems from "./pages/MenuItems/MenuItems";
 import CreateMenuItem from "./pages/MenuItems/CreateMenuItem";
 import EditMenuItem from "./pages/MenuItems/EditMenuItem";
+import Orders from "./pages/Orders/Orders";
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -44,9 +45,10 @@ function App() {
         <div className="mx-auto flex min-w-0 max-w-4xl flex-col px-4 pb-12 pt-20 lg:px-8 lg:pb-16 xl:pb-24">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/pesan" element={<Order />} />
+            <Route path="/pemesanan" element={<Order />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/menu-item" element={<MenuItems />} />
+            <Route path="/dashboard/orders" element={<Orders />} />
             <Route
               path="/dashboard/menu-item/create"
               element={<CreateMenuItem />}

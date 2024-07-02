@@ -2,8 +2,8 @@ import { Sidebar } from "flowbite-react";
 import {
   HiArrowSmRight,
   HiChartPie,
-  HiInbox,
   HiShoppingBag,
+  HiShoppingCart,
   HiTable,
   HiUser,
 } from "react-icons/hi";
@@ -18,15 +18,17 @@ export function SideBarComponent() {
           <Sidebar.Item href="#" icon={HiChartPie}>
             Dashboard
           </Sidebar.Item>
+
+          <Link to="/dashboard/orders">
+            <Sidebar.Item icon={HiShoppingCart}>Pesanan</Sidebar.Item>
+          </Link>
+
           <Link to="/dashboard/menu-item">
             <Sidebar.Item href="#" icon={IoFastFood}>
               Menu Makanan
             </Sidebar.Item>
           </Link>
 
-          <Sidebar.Item icon={HiInbox} label="3">
-            Inbox
-          </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiUser}>
             Users
           </Sidebar.Item>
