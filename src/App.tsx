@@ -14,6 +14,7 @@ import MenuItems from "./pages/MenuItems/MenuItems";
 import CreateMenuItem from "./pages/MenuItems/CreateMenuItem";
 import EditMenuItem from "./pages/MenuItems/EditMenuItem";
 import Orders from "./pages/Orders/Orders";
+import Register from "./pages/Register";
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -21,19 +22,20 @@ interface PageLayoutProps {
 
 function PageLayout({ children }: PageLayoutProps) {
   const location = useLocation();
-  const noNavbarFooterPaths = ["/login", "/register"];
+  const noNavbarFooterPaths = ["/masuk", "/daftar"];
+  const noFooterPaths = ["/dashboard"];
   const showSidebar = location.pathname.includes("/dashboard");
-  const showNavbarFooter = !noNavbarFooterPaths.includes(location.pathname);
+  const showNavbar = !noNavbarFooterPaths.includes(location.pathname);
+  const showFooter =
+    !noNavbarFooterPaths.includes(location.pathname) &&
+    !noFooterPaths.some((path) => location.pathname.startsWith(path));
 
   return (
     <div>
-      {showNavbarFooter && <NavbarComponent />}
-      {/* <div className="flex"> */}
+      {showNavbar && <NavbarComponent />}
       {showSidebar && <SideBarComponent />}
-      {/* <div className="grow">{children}</div> */}
       {children}
-      {/* </div> */}
-      {showNavbarFooter && <FooterComponent />}
+      {showFooter && <FooterComponent />}
     </div>
   );
 }
@@ -45,6 +47,8 @@ function App() {
         <div className="mx-auto flex min-w-0 max-w-4xl flex-col px-4 pb-12 pt-20 lg:px-8 lg:pb-16 xl:pb-24">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/daftar" element={<Register />} />
+
             <Route path="/pemesanan" element={<Order />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/menu-item" element={<MenuItems />} />
