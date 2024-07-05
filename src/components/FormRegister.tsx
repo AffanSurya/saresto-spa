@@ -1,42 +1,111 @@
 import { Button, Label, TextInput } from "flowbite-react";
+import React from "react";
 
-export function FormRegisterComponent() {
+interface FormRegisterProps {
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  validation: any;
+}
+
+const FormRegisterComponent: React.FC<FormRegisterProps> = ({
+  handleChange,
+  handleSubmit,
+  validation,
+}) => {
   return (
-    <form className="flex max-w-md flex-col gap-4">
+    <form
+      onSubmit={handleSubmit}
+      className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2"
+    >
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="name" value="Nama Lengkap" />
-        </div>
-        <TextInput id="name" type="text" required shadow />
-      </div>
-      <div>
-        <div className="mb-2 block">
-          <Label htmlFor="email2" value="Your email" />
+          <Label
+            htmlFor="name"
+            value="Nama Lengkap"
+            color={validation.name && "failure"}
+          />
         </div>
         <TextInput
-          id="email2"
-          type="email"
-          placeholder="name@flowbite.com"
+          id="name"
+          name="name"
+          onChange={handleChange}
+          color={validation.name && "failure"}
+          helperText={validation.name && validation.name[0]}
+          type="text"
           required
           shadow
         />
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="password2" value="Your password" />
+          <Label
+            htmlFor="email"
+            value="Email"
+            color={validation.email && "failure"}
+          />
         </div>
-        <TextInput id="password2" type="password" required shadow />
+        <TextInput
+          id="email"
+          name="email"
+          onChange={handleChange}
+          type="email"
+          placeholder="name@gmail.com"
+          color={validation.email && "failure"}
+          helperText={validation.email && validation.email[0]}
+          required
+          shadow
+        />
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="repeat-password" value="Repeat password" />
+          <Label
+            htmlFor="password"
+            value="Kata Sandi"
+            color={validation.password && "failure"}
+          />
         </div>
-        <TextInput id="repeat-password" type="password" required shadow />
+        <TextInput
+          id="password"
+          name="password"
+          onChange={handleChange}
+          type="password"
+          color={validation.password && "failure"}
+          helperText={
+            validation.password ? validation.password[0] : "Minimal 8 karakter"
+          }
+          required
+          shadow
+        />
+      </div>
+      <div>
+        <div className="mb-2 block">
+          <Label
+            htmlFor="password_confirmation"
+            value="Konfirmasi Kata Sandi"
+            color={validation.password && "failure"}
+          />
+        </div>
+        <TextInput
+          id="password_confirmation"
+          name="password_confirmation"
+          onChange={handleChange}
+          type="password"
+          helperText={
+            validation.password ? validation.password[0] : "Minimal 8 karakter"
+          }
+          color={validation.password && "failure"}
+          required
+          shadow
+        />
       </div>
 
-      <Button className="mt-4" type="submit">
-        Register new account
-      </Button>
+      <div className="md:col-span-2">
+        <Button className="mt-4 w-full" type="submit">
+          Daftar Sekarang
+        </Button>
+      </div>
     </form>
   );
-}
+};
+
+export default FormRegisterComponent;

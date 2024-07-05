@@ -1,18 +1,68 @@
 import { DarkThemeToggle } from "flowbite-react";
-import { FormRegisterComponent } from "../components/FormRegister";
+import FormRegisterComponent from "../components/FormRegister";
+import React, { useState } from "react";
+import { API_URL } from "../config";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+interface FormValueProps {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}
 
 export default function Register() {
+  const [validation, setValidation] = useState({} as any);
+  const navigate = useNavigate();
+  const [formValues, setFormValues] = useState<FormValueProps>({
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      await axios.post(`${API_URL}/register`, formValues);
+
+      navigate("/masuk");
+    } catch (error: any) {
+      setValidation(error.response.data);
+    }
+  };
+
   return (
     <div className="-mt-12 flex min-h-screen items-center justify-center">
-      <div className="w-full max-w-md space-y-4 rounded bg-white p-8 shadow-md dark:bg-gray-800">
-        <div className="flex items-center justify-between">
-          <img src="/logo-saresto.png" alt="Sa Resto" className="h-28" />
+      <div className="w-full max-w-xl space-y-8 rounded bg-white p-8 shadow-md dark:bg-gray-800">
+        <div className="flex items-center justify-between border-b border-gray-300 pb-4 dark:border-gray-700">
+          <div className="flex items-center space-x-4">
+            <img src="/logo-saresto.png" alt="Sa Resto" className="h-20" />
+            <span className="text-xl font-bold text-gray-900 dark:text-gray-100">
+              Sa Resto
+            </span>
+          </div>
           <DarkThemeToggle />
         </div>
-        <h1 className="text-center text-2xl font-bold text-gray-900 dark:text-gray-100">
+        <h1 className="mt-6 text-center text-3xl font-bold text-gray-900 dark:text-gray-100">
           Daftar
         </h1>
-        <FormRegisterComponent />
+        <FormRegisterComponent
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          validation={validation}
+        />
       </div>
     </div>
   );

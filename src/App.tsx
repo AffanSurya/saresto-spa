@@ -15,6 +15,7 @@ import CreateMenuItem from "./pages/MenuItems/CreateMenuItem";
 import EditMenuItem from "./pages/MenuItems/EditMenuItem";
 import Orders from "./pages/Orders/Orders";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -48,6 +49,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/daftar" element={<Register />} />
+            <Route path="/masuk" element={<Login />} />
 
             <Route path="/pemesanan" element={<Order />} />
             <Route path="/dashboard" element={<Dashboard />} />
