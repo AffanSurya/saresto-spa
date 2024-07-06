@@ -3,7 +3,7 @@ import FormRegisterComponent from "../components/FormRegister";
 import React, { useState } from "react";
 import { API_URL } from "../config";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface FormValueProps {
   name: string;
@@ -63,6 +63,16 @@ export default function Register() {
           handleSubmit={handleSubmit}
           validation={validation}
         />
+
+        <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+          Sudah punya akun?{" "}
+          <Link
+            to="/masuk"
+            className="text-blue-600 hover:underline dark:text-blue-400"
+          >
+            Masuk di sini
+          </Link>
+        </p>
       </div>
     </div>
   );
