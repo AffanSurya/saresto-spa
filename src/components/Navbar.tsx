@@ -35,16 +35,16 @@ function NavbarComponent() {
     role: "",
   });
 
-  const loadUser = async () => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
 
-      try {
-        const response = await axios.get(`${API_URL}/user`);
-        setUser(response.data);
-      } catch (error: any) {
-        console.error(`Gagal memuat data user dari server: ${error.message}`);
-      }
+  const loadUser = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/user`);
+      setUser(response.data);
+    } catch (error: any) {
+      console.error(`Gagal memuat data user dari server: ${error.message}`);
     }
   };
 
@@ -69,18 +69,18 @@ function NavbarComponent() {
 
   return (
     <Navbar fluid rounded className="fixed inset-x-0 z-50">
-      {/* <Link to="/"> */}
-      <NavbarBrand>
-        <img
-          src="/logo-saresto.png"
-          className="mr-3 h-6 sm:h-9"
-          alt="Sa Resto logo"
-        />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          Sa Resto
-        </span>
-      </NavbarBrand>
-      {/* </Link> */}
+      <Link to="/">
+        <NavbarBrand>
+          <img
+            src="/logo-saresto.png"
+            className="mr-3 h-6 sm:h-9"
+            alt="Sa Resto logo"
+          />
+          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+            Sa Resto
+          </span>
+        </NavbarBrand>
+      </Link>
       <div className="flex md:order-2">
         <DarkThemeToggle className="mr-4" />
         {token ? (

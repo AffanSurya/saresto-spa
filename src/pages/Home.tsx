@@ -3,6 +3,7 @@ import CarouselComponent from "../components/Carousel";
 import ContactInfoComponent from "../components/ContactInfo";
 import { HiOutlineArrowRight } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import TopMenuItemsComponent from "../components/TopMenuItems";
 
 function Home() {
   return (
@@ -22,7 +23,7 @@ function Home() {
 
       <section className="my-8">
         <h2 className="mb-4 text-3xl font-semibold">Menu Unggulan</h2>
-        {/* <FeaturedMenu /> */}
+        <TopMenuItemsComponent />
       </section>
 
       <section className="my-8">

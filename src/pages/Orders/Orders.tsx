@@ -36,6 +36,11 @@ export default function Orders() {
   const [success, setSuccess] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
+
   const loadOrders = () => {
     axios
       .get(`${API_URL}/order`)

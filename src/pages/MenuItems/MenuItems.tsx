@@ -25,6 +25,11 @@ export default function MenuItems() {
   const [deleteSuccess, setDeleteSuccess] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
+
   const loadMenuItems = async () => {
     try {
       const response = await axios.get<MenuItemResponse>(

@@ -37,9 +37,24 @@ export default function Order() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [userId, setUserId] = useState<number | null>(null);
   const [selectedMenuItems, setSelectedMenuItems] = useState<SelectedItem[]>(
     [],
   );
+
+  const token = localStorage.getItem("token");
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
+
+  const loadUser = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/user`);
+      setUserId(response.data.id);
+    } catch (error: any) {
+      console.error(`Gagal memuat data user dari server: ${error.message}`);
+    }
+  };
 
   const loadMenuItems = async () => {
     try {
@@ -56,6 +71,7 @@ export default function Order() {
     if (!localStorage.getItem("token")) {
       navigate("/masuk");
     } else {
+      loadUser();
       loadMenuItems();
     }
   }, [navigate]);
@@ -102,7 +118,7 @@ export default function Order() {
     try {
       // langkah 1: membuat order
       const orderData = {
-        user_id: 1, //ganti dengan user id dari table user
+        user_id: userId,
         table_number: parseInt(selectedTable || "", 10),
       };
 
@@ -137,8 +153,8 @@ export default function Order() {
       });
 
       setSuccess("Pesanan berhasil dibuat!");
-    } catch (error) {
-      setError(`Gagal menempatkan pesanan: ${error}`);
+    } catch (error: any) {
+      setError(`Gagal menempatkan pesanan: ${error.message}`);
     } finally {
       setLoading(false);
       setSelectedTable(null);

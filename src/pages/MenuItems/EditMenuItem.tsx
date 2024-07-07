@@ -34,6 +34,11 @@ export default function EditMenuItem() {
     image: "",
   });
 
+  const token = localStorage.getItem("token");
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
+
   const getMenuItem = useCallback(() => {
     axios
       .get(`${API_URL}/menuItem1/show/${id}`)
