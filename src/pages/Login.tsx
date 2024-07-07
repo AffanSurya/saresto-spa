@@ -1,7 +1,7 @@
 import { DarkThemeToggle } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import FormLoginComponent from "../components/FormLogin";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { API_URL } from "../config";
 import axios from "axios";
 
@@ -32,14 +32,21 @@ export default function Login() {
 
     try {
       const response = await axios.post(`${API_URL}/login`, formValues);
-      console.log(response.data);
+      const token = response.data.token;
 
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token", token);
+
       navigate("/");
     } catch (error: any) {
       setValidation(error.response.data);
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  });
 
   return (
     <div className="-mt-12 flex min-h-screen items-center justify-center">

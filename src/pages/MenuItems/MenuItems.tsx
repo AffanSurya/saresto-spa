@@ -3,7 +3,7 @@ import MenuItemsTableComponent from "../../components/MenuItemsTable";
 import axios from "axios";
 import { Alert, Button } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../../config";
 
 interface MenuItemProps {
@@ -23,6 +23,7 @@ export default function MenuItems() {
   const [menuItems, setMenuItems] = useState<MenuItemProps[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [deleteSuccess, setDeleteSuccess] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const loadMenuItems = async () => {
     try {
@@ -37,8 +38,12 @@ export default function MenuItems() {
   };
 
   useEffect(() => {
-    loadMenuItems();
-  }, []);
+    if (!localStorage.getItem("token")) {
+      navigate("/masuk");
+    } else {
+      loadMenuItems();
+    }
+  }, [navigate]);
 
   const handleDelete = async (id: number, name: string) => {
     try {

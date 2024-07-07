@@ -8,6 +8,7 @@ import MenuCategoryComponent from "../components/MenuCategory";
 import ReviewOrderComponent from "../components/ReviewOrder";
 import { HiInformationCircle } from "react-icons/hi";
 import { API_URL } from "../config";
+import { useNavigate } from "react-router-dom";
 
 interface MenuItemProps {
   id: number;
@@ -35,6 +36,7 @@ export default function Order() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const navigate = useNavigate();
   const [selectedMenuItems, setSelectedMenuItems] = useState<SelectedItem[]>(
     [],
   );
@@ -51,8 +53,12 @@ export default function Order() {
   };
 
   useEffect(() => {
-    loadMenuItems();
-  }, []);
+    if (!localStorage.getItem("token")) {
+      navigate("/masuk");
+    } else {
+      loadMenuItems();
+    }
+  }, [navigate]);
 
   const handleTableChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedTable(event.target.value);

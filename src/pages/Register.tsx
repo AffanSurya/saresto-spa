@@ -1,6 +1,6 @@
 import { DarkThemeToggle } from "flowbite-react";
 import FormRegisterComponent from "../components/FormRegister";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { API_URL } from "../config";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -42,6 +42,12 @@ export default function Register() {
       setValidation(error.response.data);
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  });
 
   return (
     <div className="-mt-12 flex min-h-screen items-center justify-center">

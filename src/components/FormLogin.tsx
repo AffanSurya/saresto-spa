@@ -61,7 +61,7 @@ const FormLoginComponent: React.FC<FormLoginProps> = ({
 
       <div className="md:col-span-2">
         <Button className="mt-4 w-full" type="submit" color="blue">
-          Daftar Sekarang
+          Masuk Sekarang
         </Button>
       </div>
     </form>

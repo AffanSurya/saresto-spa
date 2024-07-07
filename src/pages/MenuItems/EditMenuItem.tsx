@@ -1,5 +1,5 @@
 // import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import FormMenuItemComponent from "../../components/FormMenuItem";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
@@ -26,6 +26,7 @@ interface validationProps {
 export default function EditMenuItem() {
   const { id } = useParams<{ id: string }>();
   const [validation, setValidation] = useState<validationProps>({});
+  const navigate = useNavigate();
   const [menuItems, setMenuItems] = useState<MenuItemProps>({
     name: "",
     price: "",
@@ -51,8 +52,12 @@ export default function EditMenuItem() {
   }, [id]);
 
   useEffect(() => {
-    getMenuItem();
-  }, [getMenuItem]);
+    if (!localStorage.getItem("token")) {
+      navigate("/masuk");
+    } else {
+      getMenuItem();
+    }
+  }, [navigate, getMenuItem]);
 
   return (
     <div>

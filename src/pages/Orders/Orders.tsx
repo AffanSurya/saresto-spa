@@ -10,6 +10,7 @@ import OrdersTableComponent from "../../components/OrdersTable";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../config";
+import { useNavigate } from "react-router-dom";
 
 interface OrderProps {
   id: number;
@@ -33,6 +34,7 @@ export default function Orders() {
   const [orders, setOrders] = useState<OrderProps[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const loadOrders = () => {
     axios
@@ -62,8 +64,12 @@ export default function Orders() {
   };
 
   useEffect(() => {
-    loadOrders();
-  }, []);
+    if (!localStorage.getItem("token")) {
+      navigate("/masuk");
+    } else {
+      loadOrders();
+    }
+  }, [navigate]);
 
   const pendings = orders.filter((order) => order.status === "pending");
   const processings = orders.filter((order) => order.status === "processing");
