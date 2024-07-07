@@ -1,7 +1,7 @@
 // src/components/FeaturedMenu.tsx
 
 import React, { useEffect, useState } from "react";
-import { Card, Button } from "flowbite-react";
+import { Card } from "flowbite-react";
 import axios from "axios";
 import { API_URL } from "../config";
 
