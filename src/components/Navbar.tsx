@@ -35,10 +35,6 @@ function NavbarComponent() {
     role: "",
   });
 
-  if (token) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  }
-
   const loadUser = async () => {
     try {
       const response = await axios.get(`${API_URL}/user`);
@@ -63,9 +59,9 @@ function NavbarComponent() {
 
   useEffect(() => {
     loadUser();
-  });
+  }, []);
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <Navbar fluid rounded className="fixed inset-x-0 z-50">
