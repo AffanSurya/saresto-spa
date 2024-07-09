@@ -14,7 +14,7 @@ import {
 } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { API_URL } from "../config";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface UserProps {
   id: number | null;
@@ -35,14 +35,26 @@ function NavbarComponent() {
     role: "",
   });
 
-  const loadUser = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/user`);
-      setUser(response.data);
-    } catch (error: any) {
-      console.error(`Gagal memuat data user dari server: ${error.message}`);
+  const handleUnauthorized = useCallback(() => {
+    localStorage.removeItem("token");
+    navigate("/masuk");
+  }, [navigate]);
+
+  const loadUser = useCallback(async () => {
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      try {
+        const response = await axios.get(`${API_URL}/user`);
+        setUser(response.data);
+      } catch (error: any) {
+        if (error.response && error.response.status === 401) {
+          handleUnauthorized();
+        } else {
+          console.error(`Gagal memuat data user dari server: ${error.message}`);
+        }
+      }
     }
-  };
+  }, [token, handleUnauthorized]);
 
   const logoutHandler = async () => {
     if (token) {
@@ -59,7 +71,7 @@ function NavbarComponent() {
 
   useEffect(() => {
     loadUser();
-  }, []);
+  }, [loadUser]);
 
   // console.log(user);
 
@@ -89,9 +101,7 @@ function NavbarComponent() {
               <span
                 className={`block text-sm ${user.role === "admin" && "text-red-500"}`}
               >
-                {user.role === "admin"
-                  ? user.name.split(" ").slice(0, -1).join(" ")
-                  : user.name}
+                {user.name}
               </span>
               <span className="block truncate text-sm font-medium">
                 {user.email}

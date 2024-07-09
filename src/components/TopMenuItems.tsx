@@ -1,5 +1,3 @@
-// src/components/FeaturedMenu.tsx
-
 import React, { useEffect, useState } from "react";
 import { Card } from "flowbite-react";
 import axios from "axios";

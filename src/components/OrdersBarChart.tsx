@@ -1,39 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { API_URL } from "../config";
-import axios from "axios";
+import React from "react";
+
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
+import { useThemeMode } from "flowbite-react";
 
-interface orderStatsProps {
-  month: string;
-  count: number;
+interface OrdersBarChartProps {
+  months: string[];
+  counts: number[];
 }
 
-const OrdersBarChartComponent: React.FC = () => {
-  const [orderStats, setOrderStats] = useState<orderStatsProps[]>([]);
-  const token = localStorage.getItem("token");
-
-  const loadOrderStats = async () => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      try {
-        const response = await axios.get(`${API_URL}/order/statistics`);
-        setOrderStats(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Failed to load order statistics:", error);
-      }
-    }
-  };
-
-  useEffect(() => {
-    loadOrderStats();
-  }, []);
-
-  const months = orderStats.map((stat) => stat.month);
-  const counts = orderStats.map((stat) => stat.count);
-
-  //   console.log(months, counts);
+const OrdersBarChartComponent: React.FC<OrdersBarChartProps> = ({
+  months,
+  counts,
+}) => {
+  const { mode } = useThemeMode();
 
   const options: ApexOptions = {
     chart: {
@@ -43,8 +23,6 @@ const OrdersBarChartComponent: React.FC = () => {
           download: true,
         },
       },
-      foreColor: "#f5f5f5",
-      background: "#333",
     },
     xaxis: {
       categories: months,
@@ -53,7 +31,7 @@ const OrdersBarChartComponent: React.FC = () => {
       },
     },
     theme: {
-      mode: "dark",
+      mode: mode === "dark" ? "dark" : "light",
     },
   };
 
@@ -65,7 +43,10 @@ const OrdersBarChartComponent: React.FC = () => {
   ];
 
   return (
-    <div className="mt-5">
+    <div>
+      <h2 className="mb-4 text-xl font-semibold text-gray-800 dark:text-gray-100">
+        Pesanan Bulanan
+      </h2>
       <Chart options={options} series={series} type="bar" height={350} />
     </div>
   );
