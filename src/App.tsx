@@ -45,7 +45,7 @@ function App() {
   return (
     <Router>
       <PageLayout>
-        <div className="mx-auto flex min-w-0 max-w-4xl flex-col px-4 pb-12 pt-20 lg:px-8 lg:pb-16 xl:pb-24">
+        <div className="mx-auto flex min-w-0 max-w-4xl flex-col px-4 pb-12 pt-20 lg:pb-16 xl:pb-24">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/daftar" element={<Register />} />

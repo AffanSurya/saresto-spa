@@ -61,7 +61,7 @@ export default function Orders() {
       .put(`${API_URL}/order/update/${id}`, { status: status })
       .then(() => {
         loadOrders();
-        setSuccess("Berhasil mengubah status pesanan");
+        setSuccess("Berhasil mengubah status pesanan menjadi " + status);
       })
       .catch((error) => {
         setError(`Gagal mengubah status pesanan: ${error}`);

@@ -2,6 +2,8 @@ import { format } from "date-fns";
 import { Table } from "flowbite-react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { FcCancel } from "react-icons/fc";
+import { FaArrowRight } from "react-icons/fa";
 
 interface OrderProps {
   id: number;
@@ -104,8 +106,7 @@ const OrdersTableComponent: React.FC<OrderTableProps> = ({
                             className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                             onClick={() => handleClick(order.id, changeTo)}
                           >
-                            {changeTo.charAt(0).toUpperCase() +
-                              changeTo.slice(1)}
+                            <FaArrowRight className="size-7" />
                           </Link>
                           <br />
                           <Link
@@ -113,7 +114,7 @@ const OrdersTableComponent: React.FC<OrderTableProps> = ({
                             className="font-medium text-red-600 hover:underline dark:text-red-500"
                             onClick={() => handleClick(order.id, "cancelled")}
                           >
-                            Cancel
+                            <FcCancel className="size-7" />
                           </Link>
                         </Table.Cell>
                       )}
